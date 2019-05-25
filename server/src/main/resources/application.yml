@@ -1,0 +1,9 @@
+server:
+  port: 8110
+spring:
+  application:
+    name: KanbanBoard-Server
+  data:
+    mongodb:
+      uri: mongodb+srv://KanbanUser:test1234@cluster-kanbanboard-fz100.mongodb.net/test?retryWrites=true
+      database: KanbanBoard

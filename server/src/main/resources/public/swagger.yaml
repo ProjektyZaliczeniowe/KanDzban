@@ -1,0 +1,216 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Projekt Bus
+  description: Application made as university project (Java Spring Rest MongoDB)
+servers:
+  - url: https://peaceful-sierra-14544.herokuapp.com/
+paths:
+  /users:
+    get:
+      tags:
+        - users
+      summary: |
+        Get list of users
+      operationId: get-users
+      responses:
+        200:
+          description: Returns Users list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /users/{login}:
+    get:
+      tags:
+        - users
+      summary: Get user by user login or email
+      operationId: getUserByLogin
+      parameters:
+        - name: login
+          in: path
+          description: User login or email.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: User response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationError'
+              example: {
+                "errors": [
+                  "Nie znaleziono użytkownika"
+                ]
+              }
+    delete:
+      tags:
+        - users
+      summary: Delete User by login
+      operationId: deleteUserByLogin
+      parameters:
+        - name: login
+          in: path
+          description: User login
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: User deleted
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationError'
+              example: {
+                "errors": [
+                  "Nie znaleziono użytkownika"
+                ]
+              }
+
+  /register:
+    post:
+      tags:
+        - register
+      summary: Register new User
+      operationId: registerUser
+      requestBody:
+        description: User object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        201:
+          description: User created
+          headers:
+            Location:
+              schema:
+                type: "string"
+              description: URL adress of created User
+        400:
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationError'
+              example: {
+                "errors": [
+                  "password: Haslo musi zawierac znak specjalny",
+                  "password: Haslo musi zawierac liczbe",
+                  "login: Dlugosc musi byc pomiedzy 5 a 32 liter"
+                ]
+              }
+
+  /login:
+    post:
+      tags:
+        - login
+      summary: Login to application
+      operationId: login
+      requestBody:
+        description: Login field may contain user login or email
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginTemplate'
+      responses:
+        200:
+          description: User logged successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationResponse'
+              example: {
+                "response": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFsYSIsImlhdCI6MTU1NzA2NjE3OSwiZXhwIjoxNTU3MDczMzc5fQ.uCh5N4xNapNG9hLQDMTi_7BcFii0bb0Uq4Lsm7dTz8uEFMnDZQ075jK60s4y1D_yaT-gp34nno-8Nh78QpKYGQ"
+              }
+        404:
+          description: Wrong credentionals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationResponse'
+              example: {
+                "response": "Zły login"
+              }
+
+
+components:
+  schemas:
+    User:
+      properties:
+        id:
+          type: string
+        enabled:
+          type: boolean
+        login:
+          type: string
+          minLength: 5
+          maxLength: 32
+        email:
+          type: string
+          minLength: 5
+          maxLength: 32
+        password:
+          type: string
+          minLength: 5
+          maxLength: 32
+
+    NewUser:
+      required:
+        - login
+        - email
+        - password
+      properties:
+        login:
+          type: string
+          minLength: 5
+          maxLength: 32
+        email:
+          type: string
+          minLength: 5
+          maxLength: 32
+        password:
+          type: string
+          minLength: 5
+          maxLength: 32
+
+    LoginTemplate:
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+
+    ApplicationResponse:
+      properties:
+        response:
+          type: string
+
+    ApplicationError:
+      properties:
+        errors:
+          $ref: '#/components/schemas/ErrorList'
+
+    ErrorList:
+      type: array
+      items:
+        properties:
+          field:
+            type: string
