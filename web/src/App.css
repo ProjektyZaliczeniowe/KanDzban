@@ -8,8 +8,8 @@
   pointer-events: none;
 }
 
-.App-header {
-  background-color: #282c34;
+.App-nav {
+  background-color: #6f6f88;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,4 +30,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.App-nav {
+  display: inline;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.Nav-link {
+  color: beige;
+  text-decoration: none;
+  color: red;
 }
