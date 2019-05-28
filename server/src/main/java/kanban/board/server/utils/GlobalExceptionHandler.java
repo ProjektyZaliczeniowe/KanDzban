@@ -2,6 +2,7 @@ package kanban.board.server.utils;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import kanban.board.server.Application;
+import kanban.board.server.utils.exception.NotFoundException;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -53,6 +54,14 @@ public class GlobalExceptionHandler {
         }
 
         return new ApplicationError(ex.getMessage());
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected ApplicationError handleNotFoundException(NotFoundException ex, WebRequest request) {
+        String message = ex.getMessage();
+        logger.error(message);
+        return new ApplicationError(message);
     }
 
 //    @ExceptionHandler(Exception.class)

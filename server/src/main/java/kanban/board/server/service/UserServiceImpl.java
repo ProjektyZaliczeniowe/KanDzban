@@ -3,15 +3,18 @@ package kanban.board.server.service;
 import kanban.board.server.model.User;
 import kanban.board.server.repository.UserRepository;
 import kanban.board.server.service.interfaces.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User getUserById(String id) {
