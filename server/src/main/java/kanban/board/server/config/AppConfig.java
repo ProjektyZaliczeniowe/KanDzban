@@ -1,9 +1,5 @@
 package kanban.board.server.config;
 
-import kanban.board.server.service.ConfirmationTokenServiceImpl;
-import kanban.board.server.service.UserServiceImpl;
-import kanban.board.server.service.interfaces.ConfirmationTokenService;
-import kanban.board.server.service.interfaces.UserService;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,17 +12,6 @@ import java.util.Properties;
 
 @Configuration
 public class AppConfig {
-
-    @Bean
-    public UserService getUserService(){
-        return new UserServiceImpl();
-    }
-
-    @Bean
-    public ConfirmationTokenService getConfirmationTokenService() {
-        return new ConfirmationTokenServiceImpl();
-    }
-
 
     @Bean(name="mailSender")
     public JavaMailSender getJavaMailSender() {

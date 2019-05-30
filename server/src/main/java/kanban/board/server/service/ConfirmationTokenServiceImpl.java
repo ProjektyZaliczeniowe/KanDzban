@@ -3,12 +3,16 @@ package kanban.board.server.service;
 import kanban.board.server.model.ConfirmationToken;
 import kanban.board.server.repository.ConfirmationTokenRepository;
 import kanban.board.server.service.interfaces.ConfirmationTokenService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
 
-    @Autowired
-    private ConfirmationTokenRepository confirmationTokenRepository;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
+
+    public ConfirmationTokenServiceImpl(ConfirmationTokenRepository confirmationTokenRepository) {
+        this.confirmationTokenRepository = confirmationTokenRepository;
+    }
 
     @Override
     public ConfirmationToken save(ConfirmationToken confirmationToken) {

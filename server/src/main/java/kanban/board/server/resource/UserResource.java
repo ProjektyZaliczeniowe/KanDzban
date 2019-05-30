@@ -12,7 +12,6 @@ import kanban.board.server.utils.ApplicationError;
 import kanban.board.server.utils.ApplicationResponse;
 import kanban.board.server.utils.ErrorCodes;
 import kanban.board.server.utils.ProjektUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -26,14 +25,15 @@ import java.util.Date;
 @RestController
 public class UserResource {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final EmailSenderService emailSenderService;
+    private final ConfirmationTokenService confirmationTokenService;
 
-    @Autowired
-    private EmailSenderService emailSenderService;
-
-    @Autowired
-    private ConfirmationTokenService confirmationTokenService;
+    public UserResource(UserService userService, EmailSenderService emailSenderService, ConfirmationTokenService confirmationTokenService) {
+        this.userService = userService;
+        this.emailSenderService = emailSenderService;
+        this.confirmationTokenService = confirmationTokenService;
+    }
 
 
     @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
