@@ -44,7 +44,9 @@ class LoginPage extends React.Component {
         };
         this.props.history.push(from);
       },
-      error => this.setState({ error, loading: false })
+      error => {
+        this.setState({ error, loading: false });
+      }
     );
   }
 
@@ -52,11 +54,6 @@ class LoginPage extends React.Component {
     const { username, password, submitted, loading, error } = this.state;
     return (
       <div className="col-md-6 col-md-offset-3">
-        <div className="alert alert-info">
-          Username: test
-          <br />
-          Password: test
-        </div>
         <h2>Login</h2>
         <form name="form" onSubmit={this.handleSubmit}>
           <div
