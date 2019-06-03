@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+import { Navbar, Nav } from "react-bootstrap";
 import { userService } from "../services/userService";
 
 class MainPage extends Component {
@@ -23,16 +23,23 @@ class MainPage extends Component {
   }
 
   render() {
-    const { login, users } = this.state;
+    const { login } = this.state;
     return (
-      <div className="col-md-6 col-md-offset-3">
-        <h1>Hi {login}!</h1>
-        <p>You're logged in </p>
-        <p>
-          <Link to="/home" onClick={this.handleLogOut}>
-            Logout
-          </Link>
-        </p>
+      <div>
+        <Navbar bg="dark" variant="dark">
+          <Navbar.Brand href="home">KANBANBoard</Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link href="#projects">Projects</Nav.Link>
+            <Nav.Link href="#account">My account</Nav.Link>
+            <Nav.Link href="home" onClick={this.handleLogOut}>
+              Logout
+            </Nav.Link>
+          </Nav>
+        </Navbar>
+        <div className="col-md-6 col-md-offset-3">
+          <h1>Hi {login}!</h1>
+          <p>You're logged in </p>
+        </div>
       </div>
     );
   }
