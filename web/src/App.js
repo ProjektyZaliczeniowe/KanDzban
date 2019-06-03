@@ -1,13 +1,22 @@
 import React from "react";
 import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+import LoginPage from "./components/LoginPage";
+import RegisterPage from "./components/RegisterPage";
+import MainPage from "./components/MainPage";
+import HomePage from "./components/HomePage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>KanbanBoard</p>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Route exact path="/" component={MainPage} />
+        <Route path="/home" component={HomePage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/register" component={RegisterPage} />
+      </div>
+    </Router>
   );
 }
 
