@@ -1,10 +1,14 @@
 package kanban.board.server.resource;
 
 import kanban.board.server.model.Board;
+import kanban.board.server.model.User;
 import kanban.board.server.service.interfaces.BoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class BoardResource {
@@ -19,6 +23,21 @@ public class BoardResource {
     @GetMapping("/boards")
     public ResponseEntity getBoards() {
         return new ResponseEntity<>(boardService.getAll(), HttpStatus.OK);
+    }
+
+    @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
+    @GetMapping("/boards/{userLogin}")
+    public ResponseEntity getBoardsForUser(@PathVariable String userLogin) {
+        List<Board> boards = new ArrayList<>();
+        for(Board board: boardService.getAll()){
+            for(User tempUser : board.getBoardMembers()){
+                if(tempUser.getLogin().equals(userLogin)) {
+                    boards.add(board);
+                    break;
+                }
+            }
+        }
+        return new ResponseEntity<>(boards, HttpStatus.OK);
     }
 
     @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
