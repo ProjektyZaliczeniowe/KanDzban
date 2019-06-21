@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 import { Navbar, Nav } from "react-bootstrap";
 import { userService } from "../services/userService";
 
@@ -30,6 +30,7 @@ class MainPage extends Component {
           <Navbar.Brand href="home">KANBANBoard</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="#projects">Projects</Nav.Link>
+            <Nav.Link href="board">Board</Nav.Link>
             <Nav.Link href="#account">My account</Nav.Link>
             <Nav.Link href="home" onClick={this.handleLogOut}>
               Logout

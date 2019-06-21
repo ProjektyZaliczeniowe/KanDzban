@@ -39,7 +39,7 @@ public class BoardResource {
         }
         return new ResponseEntity<>(boards, HttpStatus.OK);
     }
-
+  
     @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/boards")
     public ResponseEntity addBoard(@RequestBody Board board) {
