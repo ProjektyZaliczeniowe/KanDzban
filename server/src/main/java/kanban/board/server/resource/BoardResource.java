@@ -1,10 +1,14 @@
 package kanban.board.server.resource;
 
 import kanban.board.server.model.Board;
+import kanban.board.server.model.User;
 import kanban.board.server.service.interfaces.BoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class BoardResource {
@@ -35,7 +39,7 @@ public class BoardResource {
         }
         return new ResponseEntity<>(boards, HttpStatus.OK);
     }
-    
+  
     @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/boards")
     public ResponseEntity addBoard(@RequestBody Board board) {
