@@ -22,6 +22,21 @@ public class BoardResource {
     }
 
     @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
+    @GetMapping("/boards/{userLogin}")
+    public ResponseEntity getBoardsForUser(@PathVariable String userLogin) {
+        List<Board> boards = new ArrayList<>();
+        for(Board board: boardService.getAll()){
+            for(User tempUser : board.getBoardMembers()){
+                if(tempUser.getLogin().equals(userLogin)) {
+                    boards.add(board);
+                    break;
+                }
+            }
+        }
+        return new ResponseEntity<>(boards, HttpStatus.OK);
+    }
+    
+    @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/boards")
     public ResponseEntity addBoard(@RequestBody Board board) {
         return new ResponseEntity<>(boardService.add(board), HttpStatus.CREATED);

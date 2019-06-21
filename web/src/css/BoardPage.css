@@ -1,0 +1,66 @@
+@media all and (min-width: 480px) {
+  body {
+    color: black !important;
+  }
+
+  .board-1 {
+    background-color: darkseagreen;
+    width: 100%;
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bold;
+  }
+
+  .board-2 {
+    background-color: blue;
+    width: 100px;
+    float: left;
+    color: black;
+    font-weight: bold;
+  }
+
+  .task {
+    background-color: pink;
+    width: 100%;
+    border: solid 1px black;
+    float: left;
+    color: black;
+    font-weight: bold;
+  }
+
+  #labels {
+    width: 100%;
+    height: 100px;
+    float: left;
+  }
+
+  #lewaCol {
+    width: 15%;
+    height: 100%;
+    color: black;
+    float: left;
+  }
+
+  #prawaCol {
+    margin-left: 10px;
+    width: 60%;
+    height: 100px;
+    float: left;
+  }
+
+  #labelX {
+    width: 200px;
+    margin-left: 10px;
+    height: 100px;
+    float: left;
+  }
+
+  #colName {
+    background-color: maroon;
+    width: 100%;
+    border: solid black 1px;
+    float: left;
+    color: darkgray;
+    font-weight: bold;
+  }
+}
