@@ -45,24 +45,6 @@ public class BoardServiceImpl implements BoardService {
         return createdBoard;
     }
 
-    private void logBoardAction(Board board, String action) {
-        Map<String, List<String>> params = new HashMap<>();
-        params.put("OwnerId", Collections.singletonList(board.getOwner().getId()));
-        params.put("labelListIds", board.getLabelList().stream().map(Label::getId).collect(Collectors.toList()));
-        params.put("boardMemberListIds", board.getBoardMembers().stream().map(User::getId).collect(Collectors.toList()));
-        logBoardAction(board, action, params);
-    }
-
-    private void logBoardAction(Board board, String action, Map<String, List<String>> params) {
-        ActionLog actionLog = new ActionLog();
-        actionLog.setObjectType(Board.class.getName());
-        actionLog.setObjectId(board.getId());
-        actionLog.setAction(action);
-        actionLog.setActionDate(new Date());
-        actionLog.setParams(params);
-        actionLogService.add(actionLog);
-    }
-
     @Override
     public void deleteBoardById(String id) {
         Board board = boardRepository
@@ -85,7 +67,6 @@ public class BoardServiceImpl implements BoardService {
         return modifiedBoard;
     }
 
-
     private boolean isDuplicatedOrderNumber(List<Label> labelList) {
         List<String> labelIdList = labelList.stream()
                 .map(Label::getId)
@@ -101,5 +82,23 @@ public class BoardServiceImpl implements BoardService {
                 .size();
 
         return individualNumberOfOrderNumber != referencedLabelList.size();
+    }
+
+    private void logBoardAction(Board board, String action) {
+        Map<String, List<String>> params = new HashMap<>();
+        params.put("OwnerId", Collections.singletonList(board.getOwner().getId()));
+        params.put("labelListIds", board.getLabelList().stream().map(Label::getId).collect(Collectors.toList()));
+        params.put("boardMemberListIds", board.getBoardMembers().stream().map(User::getId).collect(Collectors.toList()));
+        logBoardAction(board, action, params);
+    }
+
+    private void logBoardAction(Board board, String action, Map<String, List<String>> params) {
+        ActionLog actionLog = new ActionLog();
+        actionLog.setObjectType(Board.class.getName());
+        actionLog.setObjectId(board.getId());
+        actionLog.setAction(action);
+        actionLog.setActionDate(new Date());
+        actionLog.setParams(params);
+        actionLogService.add(actionLog);
     }
 }
