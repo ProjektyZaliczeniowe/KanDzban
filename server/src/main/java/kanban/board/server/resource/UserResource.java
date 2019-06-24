@@ -69,6 +69,7 @@ public class UserResource {
 
     }
 
+
     @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/users/{login}")
     public @ResponseBody
